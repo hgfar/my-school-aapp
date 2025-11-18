@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+// FIX: Using absolute path from src root assuming baseUrl is configured.
 // FIX: Changed import path to be relative and using 'import type'.
-// FIX: Removed .ts extension to fix module resolution issue.
+// Fix: Removed .ts extension to fix module resolution error.
 import type { User } from '../types';
 
 interface AuthProps {
@@ -22,17 +23,7 @@ const Auth: React.FC<AuthProps> = ({ onLoginSuccess }) => {
             return;
         }
 
-        let users: { [key: string]: string } = {};
-        try {
-            const storedUsers = localStorage.getItem('users');
-            users = storedUsers ? JSON.parse(storedUsers) : {};
-        } catch (err) {
-            console.error("Failed to parse users from localStorage:", err);
-            localStorage.removeItem('users'); // Clear corrupted data
-            setError('حدث خطأ في قراءة بيانات المستخدمين. الرجاء المحاولة مرة أخرى.');
-            return;
-        }
-
+        const users = JSON.parse(localStorage.getItem('users') || '{}');
 
         if (isLoginView) {
             // Login logic

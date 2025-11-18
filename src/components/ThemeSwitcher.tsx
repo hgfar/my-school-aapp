@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 // FIX: Using absolute path from src root assuming baseUrl is configured.
 // FIX: Changed import path to be relative.
-// FIX: Removed .ts extension to fix module resolution issue.
+// Fix: Removed .ts extension to fix module resolution error.
 import type { ThemeName, Theme } from '../types';
 import { PaletteIcon } from './icons/PaletteIcon';
 
