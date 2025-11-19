@@ -1,8 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
-// FIX: Using absolute path from src root assuming baseUrl is configured.
-// FIX: Changed import path to be relative.
-// Fix: Added .ts extension to the types import to fix module resolution error.
-import type { ConvertedDate } from '../types.ts';
+// Fix: Import types from src/types as the root types.ts is invalid
+import type { ConvertedDate } from '../src/types';
 
 // The API key is assumed to be available in the environment as process.env.API_KEY
 // The constructor will handle the key. A check here can crash the app.
@@ -42,10 +40,12 @@ const callGeminiWithSchema = async <T,>(prompt: string, schema: any): Promise<T>
       },
     });
 
-    const jsonString = response.text.trim();
-    if (!jsonString) {
+    const text = response.text;
+    if (!text) {
       throw new Error("Empty response from API");
     }
+
+    const jsonString = text.trim();
     return JSON.parse(jsonString) as T;
   } catch (error) {
     console.error("Error calling Gemini API:", error);

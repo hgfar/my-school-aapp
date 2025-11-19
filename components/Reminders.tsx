@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// FIX: Using absolute path from src root assuming baseUrl is configured.
-// FIX: Changed import path to be relative and using 'import type'.
-// Fix: Added .ts extension to the types import to fix module resolution error.
-import type { Reminder, Theme } from '../types.ts';
+// Fix: Import types from src/types as the root types.ts is invalid
+import type { Reminder, Theme } from '../src/types';
 // FIX: Using absolute path from src root assuming baseUrl is configured.
 // FIX: Changed import path to be relative.
 import { notificationOptions } from '../assets/notificationOptions';
