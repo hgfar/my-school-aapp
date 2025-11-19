@@ -2,7 +2,6 @@ import { GoogleGenAI, Type } from "@google/genai";
 import type { ConvertedDate } from '../types';
 
 // The API key is assumed to be available in the environment as process.env.API_KEY
-// The constructor will handle the key. A check here can crash the app.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const todayHijriResponseSchema = {
@@ -39,8 +38,8 @@ const callGeminiWithSchema = async <T,>(prompt: string, schema: any): Promise<T>
       },
     });
 
-    // Safely access text
-    const text = response.text;
+    // Safely access text handling potential undefined
+    const text = response.text || "";
     if (!text) {
       throw new Error("Empty response from API");
     }
